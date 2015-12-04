@@ -3,15 +3,19 @@ var connect = require("gulp-connect");
 
 gulp.task("connect", function () {
     connect.server({
-        root: ".",
         livereload: true
     });
 });
 
+gulp.task("reload", function () {
+    gulp.src(["*.html", "css/*.css", "js/*.js"])
+        .pipe(connect.reload());
+});
+
 gulp.task("watch", function () {
-    gulp.watch("index.html", connect.reload());
-    gulp.watch("/css/main.css", connect.reload());
-    gulp.watch("/js/*.js", connect.reload());
+    gulp.watch("*.html", ["reload"]);
+    gulp.watch("css/*.css", ["reload"]);
+    gulp.watch("js/*.js", ["reload"]);
 });
 
 gulp.task("default", ["watch", "connect"]);
