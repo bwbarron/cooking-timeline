@@ -1,6 +1,6 @@
 # cooking-timeline
 
-To install and run using gulp:
+To install gulp and run:
 
 ```bash
 $ sudo npm install -g gulp
