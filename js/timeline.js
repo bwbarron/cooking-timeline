@@ -1,6 +1,3 @@
-/**
- * Created by iguest on 12/6/15.
- */
 $(document).ready(function() {
     var box = $('#box');
     var box2 = $('#box2');
