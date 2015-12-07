@@ -1,32 +1,30 @@
 body {
     font-family: sans-serif;
+    margin: 0
 }
 
-#box {
-    background-color: #88ce02;
-    position: absolute;
-    top: 50%;
-    right: 0;
-    width: 800px;
-    height: 100px;
-    z-index: 1;
+.wait {
+    background-color: #D3DBDE
 }
 
-#box2 {
-    background-color: #2f59ce;
-    position: absolute;
-    top: 40%;
-    right: 0;
-    width: 500px;
-    height: 100px;
-    z-index: 1;
+.prepare {
+    background-color: #158CD6;
+}
+
+.cook {
+    background-color: #962653;
+}
+
+.row {
+
 }
 
 #playhead {
     background-color: #343434;
-    position: absolute;
+    position: fixed;
     top: 0;
-    height: 2000px;
+    left: 50%;
+    height: 100%;
     width: 5px;
-    right: 100%
+    right: 50%
 }

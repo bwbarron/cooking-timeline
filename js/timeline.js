@@ -1,26 +1,101 @@
 /**
- * Created by iguest on 12/6/15.
+ * Created by Brad on 12/6/15.
  */
 $(document).ready(function() {
-
-    var ing1 = {
+    //dummy data
+    var ingredients = [
+        {
         name: "chicken",
         preptime: 300,
-        prepstart: 1600,
-        cooktime: 3000,
-        cookstart: 2000
-    };
-
-    var ing2 = {
+        prepstart: 0,
+        cooktime: 2100,
+        cookstart: 300
+    },
+        {
         name: "broccoli",
+        preptime: 900,
+        prepstart: 300,
+        cooktime: 1020,
+        cookstart: 1200
+    },
+        {
+        name: "sauce",
         preptime: 600,
-        prepstart: 2000,
-        cooktime: 1000,
-        cookstart: 2600
-    };
+        prepstart: 1200,
+        cooktime: 0,
+        cookstart: 1800 }
+    ];
 
-    var box = $('#box');
-    var box2 = $('#box2');
+    //Get the full width of the timeline in pixels
+    function findContainerTotalTime(ingredients) {
+        var time = 0;
+        var i;
+        for (i = 0; i < ingredients.length; ++i) {
+            var item = ingredients[i];
+            var total = item.preptime + item.cooktime;
+            if (total > time) {
+                time = total;
+            }
+        }
+        return time;
+    }
+
+    var containerWidth = findContainerTotalTime(ingredients);
+    console.log(containerWidth);
+
+    // add timeline div to doc
+    var timelineContainer = $('#timelineContainer');
+    timelineContainer.css({
+            "position": "fixed",
+            "width": containerWidth,
+            "height": "800px",
+            "margin-left": containerWidth,
+            "overflow": "hidden",
+            "background-color": "#2f59ce",
+            "z-index": "-1"
+        });
+
+    var i;
+    for (i = 0; i < ingredients.length; ++i) {
+        var item = ingredients[i];
+        var rowHeight = 800 / ingredients.length;
+        console.log(rowHeight);
+        var waitTime = containerWidth - item.cooktime - item.preptime;
+        var row = $("<div></div>")
+            .css({
+                "height": "" + rowHeight + "px",
+                "width": "inherit"
+            })
+            .addClass("row");
+
+        var wait = $("<div></div>")
+            .css({
+                "height": "inherit",
+                "width": waitTime,
+                "display": "inline-block"
+            })
+            .addClass("wait");
+
+        var prepare = $("<div></div>")
+            .css({
+                "height": "inherit",
+                "width": item.preptime,
+                "display": "inline-block"
+            })
+            .addClass("prepare");
+
+        var cook = $("<div></div>")
+            .css({
+            "height": "inherit",
+            "width": item.cooktime,
+            "display": "inline-block"
+            })
+            .addClass("cook");
+
+        row.append(wait).append(prepare).append(cook);
+        timelineContainer.append(row);
+    }
+
     var playhead = $('#playhead');
 
     var timeline = new TimelineMax({
@@ -28,33 +103,19 @@ $(document).ready(function() {
         onUpdate: update,
         onComplete: complete
     });
-    var box2Time = 3;
 
-    // ( variable,
-    // animation length,
-    // {
-    // css properties
-    // },
-    // position in timeline
-    // )
-
+    //"margin-left": -containerWidth works
     TweenMax.to(
-        playhead, 3, { right: 0 }
+        timelineContainer, 2, {ease: Power0.easeNone, "margin-left": -containerWidth / 2 }
     );
 
-    timeline.to(
-        box, 3, { width: 100 }, 0
-    ).to(
-        box2, 3, { width: 100 }
-    );
-
-    //callback functions for elemtents if we want
+    //callback functions for elements if we want
     function start() {
         console.log('timeline started');
     }
 
     function update() {
-        console.log(timeline.progress().toFixed(2));
+        //console.log(timeline.progress().toFixed(2));
     }
 
     function complete() {
