@@ -2,6 +2,12 @@ body {
     font-family: sans-serif;
 }
 
+.dish-container {
+    border: solid;
+    padding: 1em;
+    margin: 1em;
+}
+
 #box {
     background-color: #88ce02;
     position: absolute;
