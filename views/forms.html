@@ -1,6 +1,6 @@
 <div>
-    <h1>Your Meal:</h1>
-    <button ng-click = "addDish()">Add Dish</button>
+    <h1 id="meal">Your Meal:</h1>
+    <button id="addDish" ng-click = "addDish()">Add Dish</button>
     <form class="cooking" name="cookingInfo" novalidate time-is-present>
         <div class = form-group>
             <div class = "dish-container" ng-repeat = "dish in meal track by $index">

@@ -1,11 +1,19 @@
-body {
-    font-family: sans-serif;
+body, #meal {
+    /*font-family: sans-serif; */
+    font-family: 'Handlee', cursive;
+    background-image: url(img/ingredients.jpg);
+}
+
+#meal, #addDish {
+    margin-left: 10px;
 }
 
 .dish-container {
     border: solid;
     padding: 1em;
     margin: 1em;
+    background-color: white;
+    opacity: 0.8;
 }
 
 #box {
