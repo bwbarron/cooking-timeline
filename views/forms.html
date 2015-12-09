@@ -1,17 +1,33 @@
 <div>
     <h1>Your Meal:</h1>
     <button ng-click = "addDish()">Add Dish</button>
-    <div class = form-group>
-        <div class = "dish-container" ng-repeat = "dish in meal track by $index">
-            <input type="text" name = "dishName" placeholder = "{{dish.name}}" ng-model = "meal[$index].name"/>
-            <button ng-click = "removeDish($index)">Remove {{dish.name}}</button>
-            <div ng-repeat = 'component in dish.components track by $index'>
-                <input type="text" name="componentName" placeholder = "{{component.name}}" ng-model="meal[$parent.$index].components[$index].name"/>
-                <input type="text" name="time" placeholder = "{{component.time}}" ng-model="meal[$parent.$index].components[$index].time"/>
-                <select name="methods" id="methods" ng-options = "m as m for m in methods" ng-model = "meal[$parent.$index].components[$index].method"></select>
-                <button ng-click = "removeComponent($index, $parent.$index)">Remove {{component.name}}</button>
+    <form class="cooking" name="cookingInfo" novalidate time-is-present>
+        <div class = form-group>
+            <div class = "dish-container" ng-repeat = "dish in meal track by $index">
+                <input type="text" name = "{{dish.id}}" placeholder = "{{dish.name}}" ng-model = "meal[$index].name" required/>
+                <p class="validation-error" ng-if="cookingInfo.$dirty && cookingInfo.dish.id.$error.required">Dish Name is required.</p>
+                <button ng-click = "removeDish($index)">Remove {{dish.name}}</button>
+                <div ng-repeat = 'component in dish.components track by $index'>
+                    <input type="text" name="{{component.id}}" placeholder = "{{component.name}}" ng-model="meal[$parent.$index].components[$index].name"
+                            required/>
+                    <p class="validation-error" ng-if="cookingInfo.component.id.$dirty && cookingInfo.component.id.$error.required">Component Name is required.</p>
+                    <label for="prepTime">Prep Time:</label>
+                    <input type="text" name="prepTime" id="prepTime" placeholder = "{{component.prepTime}}" ng-model="meal[$parent.$index].components[$index].prepTime"
+                            pattern="[0-9][0-9][:][0-9][0-9][:][0-9][0-9]"/>
+                    <label for="cookTime">Cook Time:</label>
+                    <input type="text" name="cookTime" id="cookTime" placeholder = "{{component.cookTime}}" ng-model="meal[$parent.$index].components[$index].cookTime"
+                            pattern="[0-9][0-9][:][0-9][0-9][:][0-9][0-9]"/>
+                    <label for="coolTime">Cooling Time:</label>
+                    <input type="text" name="coolTime" id="coolTime" placeholder = "{{component.coolTime}}" ng-model="meal[$parent.$index].components[$index].coolTime"
+                            pattern="[0-9][0-9][:][0-9][0-9][:][0-9][0-9]"/>
+                    <p class="validation-error" ng-if="(cookingInfo.$dirty) && (cookingInfo.prepTime.$error.pattern || cookingInfo.cookTime.$error.pattern
+                        || cookingInfo.coolTime.$error.pattern)">Times must be in 00:00:00 format.</p>
+                    <p class="validation-error" ng-if="cookingInfo.$dirty && cookingInfo.$error.timeIsPresent">Each meal component must have at least one time.</p>
+                    <select name="methods" id="methods" ng-options = "m as m for m in methods" ng-model = "meal[$parent.$index].components[$index].method"></select>
+                    <button ng-click = "removeComponent($index, $parent.$index)">Remove {{component.name}}</button>
+                </div>
+                <button ng-click = "addComponent($index)">Add Component</button>
             </div>
-            <button ng-click = "addComponent($index)">Add Component</button>
         </div>
-    </div>
+    </form>
 </div>

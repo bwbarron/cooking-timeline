@@ -9,20 +9,43 @@ angular.module("Timeline", ["ui.router"])
             });
         $urlRouterProvider.otherwise('/form');
     })
+
+    .directive('timeIsPresent', function() {
+        return {
+            require: 'ngModel',
+                link: function(scope, elem, attrs, controller) {
+                    controller.$validators.timeIsPresent = function(modelValue) {
+                        for (var i = 0; i < scope.meal.length; i++) {
+                            for (var j = 0; i < scope.meal[i].components.length; j++) {
+                                var component = scope.meal[i].components[j];
+                                if (component.prepTime === '00:00:00' && component.cookTime === '00:00:00' && component.coolTime === '00:00:00') {
+                                    return false;
+                                }
+                            }
+                        }
+                        return true;
+                    }
+                }
+        };
+    })
+
     .controller("FormController", function ($scope) {
         "use strict";
-        $scope.methods = ['Oven', 'Microwave', 'Burner'];
+        $scope.methods = ['Oven', 'Microwave', 'Burner', 'Grill'];
         $scope.meal = [];
+        $scope.counter = 0;
 
         $scope.addDish = function() {
-            var blankDish = {name: 'Enter Dish Name', components: []};
+            var blankDish = {id: $scope.counter, name: 'Enter Dish Name', components: []};
             $scope.meal.push(blankDish);
             $scope.addComponent($scope.meal.length - 1);
+            $scope.counter++;
         };
 
         $scope.addComponent = function(index) {
-            var blankComponent = {name: 'Enter Component Name', time: '00:00:00', method: ''};
+            var blankComponent = {id: $scope.counter, name: 'Enter Component Name', prepTime: '00:00:00', cookTime: '00:00:00', coolTime: '00:00:00', method: ''};
             $scope.meal[index].components.push(blankComponent);
+            $scope.counter++;
         };
 
         $scope.removeDish = function(index) {
