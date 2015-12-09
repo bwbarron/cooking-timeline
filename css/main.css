@@ -4,6 +4,10 @@ body, #meal {
     background-image: url(img/ingredients.jpg);
 }
 
+input {
+    margin-bottom: 20px;
+}
+
 #meal, #addDish {
     margin-left: 10px;
 }
