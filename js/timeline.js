@@ -2,6 +2,38 @@
  * Created by Brad on 12/6/15.
  */
 $(document).ready(function() {
+
+    var windowWidth = $(window).width();
+    var windowHeight = $(window).height();
+    var startSeconds;
+    var animating = false;
+    var finished = false;
+    $(window).resize(function() {
+        // This will execute whenever the window is resized
+        var previousWidth = windowWidth;
+        var previousHeight = windowHeight;
+
+        windowWidth = $(window).width(); // New width
+        windowHeight = $(window).height(); // New height
+        $('#playhead').css({
+            "left" : windowWidth / 2
+        });
+
+        //calc new margin point
+        marginPoint = -containerWidth + (windowWidth / 2);
+        if (animating) {
+            pause();
+            var pauseSeconds =new Date().getTime() / 1000;
+            animate.resume(pauseSeconds - startSeconds);
+            pause();
+        } else  if (finished) {
+            $('#timelineContainer').css({
+                "margin-left": marginPoint
+            });
+        }
+    });
+
+
     //dummy data
     var ingredients = [
         {
@@ -41,6 +73,7 @@ $(document).ready(function() {
     }
 
     var containerWidth = findContainerTotalTime(ingredients);
+    var marginPoint = -containerWidth + (windowWidth / 2);
     console.log(containerWidth);
 
     // add timeline div to doc
@@ -104,14 +137,31 @@ $(document).ready(function() {
         onComplete: complete
     });
 
-    //"margin-left": -containerWidth works
-    TweenMax.to(
-        timelineContainer, 2, {ease: Power0.easeNone, "margin-left": -containerWidth / 2 }
+    var t1 = new TimelineMax({onStart: start, onUpdate: update, onComplete: complete});
+
+    //Tween
+    var animate = TweenMax.to(
+        timelineContainer, 5, {ease: Power0.easeNone, "margin-left": marginPoint}
     );
+    t1.add(animate);
+
+    function pause() {
+        if (animating) {
+            animating = false;
+            animate.pause();
+            console.log('pause');
+        } else {
+            animating = true;
+            animate.resume();
+        }
+    }
+
 
     //callback functions for elements if we want
     function start() {
         console.log('timeline started');
+        startSeconds = new Date().getTime() / 1000;
+        animating = true;
     }
 
     function update() {
@@ -119,6 +169,8 @@ $(document).ready(function() {
     }
 
     function complete() {
+        animating = false;
+        finished = true;
         console.log('complete');
     }
 });
