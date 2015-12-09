@@ -20,6 +20,19 @@ input {
     opacity: 0.8;
 }
 
+.form-section, .component-container {
+    margin-bottom: 1em;
+}
+
+.component-container {
+    border-bottom: 1px solid #ccc;
+}
+
+.dish-info {
+    border-bottom: 3px solid #ccc;
+    padding-bottom: 1em;
+}
+
 #box {
     background-color: #88ce02;
     position: absolute;
