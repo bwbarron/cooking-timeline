@@ -2,36 +2,17 @@
  * Created by Brad on 12/6/15.
  */
 $(document).ready(function() {
+    //for fullscreen
+    $('#btn').on('click', function() {
+        if (screenfull.enabled) {
+            screenfull.request();
+        }
+    });
 
     var windowWidth = $(window).width();
-    var windowHeight = $(window).height();
     var startSeconds;
     var animating = false;
     var finished = false;
-    $(window).resize(function() {
-        // This will execute whenever the window is resized
-        var previousWidth = windowWidth;
-        var previousHeight = windowHeight;
-
-        windowWidth = $(window).width(); // New width
-        windowHeight = $(window).height(); // New height
-        $('#playhead').css({
-            "left" : windowWidth / 2
-        });
-
-        //calc new margin point
-        marginPoint = -containerWidth + (windowWidth / 2);
-        if (animating) {
-            pause();
-            var pauseSeconds =new Date().getTime() / 1000;
-            animate.resume(pauseSeconds - startSeconds);
-            pause();
-        } else  if (finished) {
-            $('#timelineContainer').css({
-                "margin-left": marginPoint
-            });
-        }
-    });
 
 
     //dummy data
@@ -81,17 +62,19 @@ $(document).ready(function() {
     timelineContainer.css({
             "position": "fixed",
             "width": containerWidth,
-            "height": "800px",
-            "margin-left": containerWidth,
+            "height": "inherit",
+            "margin-left": windowWidth / 2,
             "overflow": "hidden",
-            "background-color": "#2f59ce",
             "z-index": "-1"
         });
 
+    var t1 = new TimelineMax({onStart: start, onUpdate: update, onComplete: complete});
+
     var i;
+    var rows =[];
     for (i = 0; i < ingredients.length; ++i) {
         var item = ingredients[i];
-        var rowHeight = 800 / ingredients.length;
+        var rowHeight = timelineContainer.height() / ingredients.length;
         console.log(rowHeight);
         var waitTime = containerWidth - item.cooktime - item.preptime;
         var row = $("<div></div>")
@@ -126,7 +109,9 @@ $(document).ready(function() {
             .addClass("cook");
 
         row.append(wait).append(prepare).append(cook);
+        rows.push(row);
         timelineContainer.append(row);
+        //t1.addLabel("Prepare " + item.name, )
     }
 
     var playhead = $('#playhead');
@@ -137,24 +122,48 @@ $(document).ready(function() {
         onComplete: complete
     });
 
-    var t1 = new TimelineMax({onStart: start, onUpdate: update, onComplete: complete});
+
+
 
     //Tween
     var animate = TweenMax.to(
         timelineContainer, 5, {ease: Power0.easeNone, "margin-left": marginPoint}
     );
+
     t1.add(animate);
 
-    function pause() {
+    function togglePause() {
         if (animating) {
             animating = false;
-            animate.pause();
-            console.log('pause');
+            $('#play').attr('display', 'block');
+            $('#pause').attr('display', 'none');
+            t1.pause();
         } else {
             animating = true;
-            animate.resume();
+            $('#pause').attr('display', 'block');
+            $('#play').attr('display', 'none');
+            t1.resume();
         }
     }
+
+    $(".play-button").click(function() {
+
+    });
+
+
+    var flip = true,
+        pause = "M11,10 L18,13.74 18,22.28 11,26 M18,13.74 L26,18 26,18 18,22.28",
+        play = "M11,10 L17,10 17,26 11,26 M20,10 L26,10 26,26 20,26",
+        $animation = $('#animation');
+
+    $(".ytp-play-button").on('click', function() {
+        togglePause();
+        flip = !flip;
+        $animation.attr({
+            "from": flip ? pause : play,
+            "to": flip ? play : pause
+        }).get(0).beginElement();
+    });
 
 
     //callback functions for elements if we want

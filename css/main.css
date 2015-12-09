@@ -1,22 +1,82 @@
+@import url(https://fonts.googleapis.com/css?family=Indie+Flower);
+
+html {
+  background: url(../img/bg.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
 body {
-    font-family: sans-serif;
+    font-family: 'Indie Flower', cursive;
     margin: 0
 }
 
+h1 {
+    font-size: 48px;
+    padding: 1em;
+    color: #FFF;
+    display: inline;
+    text-align: right;
+}
+
 .wait {
-    background-color: #D3DBDE
+    background-color: #D3DBDE;
+    opacity: 0.5;
+    text-align: left;
 }
 
 .prepare {
-    background-color: #158CD6;
+    background-color: #4BA3AF;
+    text-align: left;
 }
 
 .cook {
-    background-color: #962653;
+    background-color: #B33529;
+    text-align: left;
 }
 
 .row {
+    padding-bottom: 8px;
 
+}
+
+button {
+   margin: 16x
+   outline: none;
+   border: 0px solid;
+   background: transparent;
+}
+
+.ytp-play-button {
+   fill: #fff;
+   opacity: 0.75;
+}
+
+.ytp-play-button:hover {
+   cursor: pointer;
+   opacity: 1;
+}
+
+#pause {
+    display: none;
+    fill: #FFF;
+    height: 10vh;
+    padding: 24px;
+}
+
+svg:hover {
+    cursor: pointer
+}
+
+#topHead, #bottomInfo {
+    height: 20vh;
+}
+
+#middleTimeline {
+    height: 60vh;
 }
 
 #playhead {
@@ -24,7 +84,7 @@ body {
     position: fixed;
     top: 0;
     left: 50%;
-    height: 100%;
+    height: 80vh;
     width: 5px;
     right: 50%
 }
