@@ -36,14 +36,14 @@ angular.module("Timeline", ["ui.router"])
         $scope.counter = 0;
 
         $scope.addDish = function() {
-            var blankDish = {id: $scope.counter, name: 'Enter Dish Name', components: []};
+            var blankDish = {id: $scope.counter, name: '', components: []};
             $scope.meal.push(blankDish);
             $scope.addComponent($scope.meal.length - 1);
             $scope.counter++;
         };
 
         $scope.addComponent = function(index) {
-            var blankComponent = {id: $scope.counter, name: 'Enter Component Name', prepTime: '00:00:00', cookTime: '00:00:00', coolTime: '00:00:00', method: ''};
+            var blankComponent = {id: $scope.counter, name: '', prepTime: '', cookTime: '', coolTime: '', method: ''};
             $scope.meal[index].components.push(blankComponent);
             $scope.counter++;
         };

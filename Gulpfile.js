@@ -8,12 +8,13 @@ gulp.task("connect", function () {
 });
 
 gulp.task("reload", function () {
-    gulp.src(["*.html", "css/*.css", "js/*.js"])
+    gulp.src(["*.html", "views/*.html", "css/*.css", "js/*.js"])
         .pipe(connect.reload());
 });
 
 gulp.task("watch", function () {
     gulp.watch("*.html", ["reload"]);
+    gulp.watch("views/*.html", ["reload"]);
     gulp.watch("css/*.css", ["reload"]);
     gulp.watch("js/*.js", ["reload"]);
 });

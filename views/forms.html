@@ -1,32 +1,52 @@
 <div>
     <h1 id="meal">Your Meal:</h1>
-    <button id="addDish" ng-click = "addDish()">Add Dish</button>
-    <form class="cooking" name="cookingInfo" novalidate time-is-present>
-        <div class = form-group>
+    <button id="addDish" class="btn btn-primary" ng-click = "addDish()">Add Dish</button>
+    <form class="cooking form-inline" name="cookingInfo" novalidate time-is-present>
+        <div class="form-group">
             <div class = "dish-container" ng-repeat = "dish in meal track by $index">
-                <input type="text" name = "{{dish.id}}" placeholder = "{{dish.name}}" ng-model = "meal[$index].name" required/>
-                <p class="validation-error" ng-if="cookingInfo.$dirty && cookingInfo.dish.id.$error.required">Dish Name is required.</p>
-                <button ng-click = "removeDish($index)">Remove {{dish.name}}</button>
-                <div ng-repeat = 'component in dish.components track by $index'>
-                    <input type="text" name="{{component.id}}" placeholder = "{{component.name}}" ng-model="meal[$parent.$index].components[$index].name"
-                            required/>
-                    <p class="validation-error" ng-if="cookingInfo.component.id.$dirty && cookingInfo.component.id.$error.required">Component Name is required.</p>
-                    <label for="prepTime">Prep Time:</label>
-                    <input type="text" name="prepTime" id="prepTime" placeholder = "{{component.prepTime}}" ng-model="meal[$parent.$index].components[$index].prepTime"
-                            pattern="[0-9][0-9][:][0-9][0-9][:][0-9][0-9]"/>
-                    <label for="cookTime">Cook Time:</label>
-                    <input type="text" name="cookTime" id="cookTime" placeholder = "{{component.cookTime}}" ng-model="meal[$parent.$index].components[$index].cookTime"
-                            pattern="[0-9][0-9][:][0-9][0-9][:][0-9][0-9]"/>
-                    <label for="coolTime">Cooling Time:</label>
-                    <input type="text" name="coolTime" id="coolTime" placeholder = "{{component.coolTime}}" ng-model="meal[$parent.$index].components[$index].coolTime"
-                            pattern="[0-9][0-9][:][0-9][0-9][:][0-9][0-9]"/>
-                    <p class="validation-error" ng-if="(cookingInfo.$dirty) && (cookingInfo.prepTime.$error.pattern || cookingInfo.cookTime.$error.pattern
-                        || cookingInfo.coolTime.$error.pattern)">Times must be in 00:00:00 format.</p>
-                    <p class="validation-error" ng-if="cookingInfo.$dirty && cookingInfo.$error.timeIsPresent">Each meal component must have at least one time.</p>
-                    <select name="methods" id="methods" ng-options = "m as m for m in methods" ng-model = "meal[$parent.$index].components[$index].method"></select>
-                    <button ng-click = "removeComponent($index, $parent.$index)">Remove {{component.name}}</button>
+                <div class="form-section dish-info">
+                    <input type="text" class="form-control" name = "{{dish.id}}" placeholder = "Enter dish name" ng-model = "meal[$index].name" required/>
+                    <p class="validation-error" ng-if="cookingInfo.$dirty && cookingInfo.dish.id.$error.required">Dish Name is required.</p>
+                    <button class="btn btn-danger" ng-click = "removeDish($index)">Remove {{dish.name}}</button>
                 </div>
-                <button ng-click = "addComponent($index)">Add Component</button>
+
+                <div class="component-container" ng-repeat = 'component in dish.components track by $index'>
+                    <div class="form-section">
+                        <input type="text" class="form-control" name="{{component.id}}" placeholder = "Enter component name"
+                               ng-model="meal[$parent.$index].components[$index].name" required/>
+                        <button class="btn btn-danger" ng-click = "removeComponent($index, $parent.$index)">Remove {{component.name}}</button>
+                        <p class="validation-error" ng-if="cookingInfo.component.id.$dirty && cookingInfo.component.id.$error.required">Component Name is required.</p>
+                    </div>
+
+                    <div class="times">
+                        <div class="form-section">
+                            <label for="prepTime" class="form-group">Prep Time:</label>
+                            <input type="text" class="form-control" name="prepTime" id="prepTime" placeholder = "00:00:00" ng-model="meal[$parent.$index].components[$index].prepTime"
+                                    pattern="[0-9][0-9][:][0-9][0-9][:][0-9][0-9]"/>
+                        </div>
+
+                        <div class="form-section">
+                            <label for="cookTime" class="form-group">Cook Time:</label>
+                            <input type="text" class="form-control" name="cookTime" id="cookTime" placeholder = "00:00:00" ng-model="meal[$parent.$index].components[$index].cookTime"
+                                    pattern="[0-9][0-9][:][0-9][0-9][:][0-9][0-9]"/>
+                            <label for="methods" class="form-group">Resource:</label>
+                            <select class="form-control" name="methods" id="methods" ng-options = "m as m for m in methods"
+                                    ng-model = "meal[$parent.$index].components[$index].method"></select>
+                        </div>
+
+                        <div class="form-section">
+                            <label for="coolTime" class="form-group">Cooling Time:</label>
+                            <input type="text" class="form-control" name="coolTime" id="coolTime" placeholder = "00:00:00" ng-model="meal[$parent.$index].components[$index].coolTime"
+                                    pattern="[0-9][0-9][:][0-9][0-9][:][0-9][0-9]"/>
+                        </div>
+
+                        <p class="validation-error" ng-if="(cookingInfo.$dirty) && (cookingInfo.prepTime.$error.pattern || cookingInfo.cookTime.$error.pattern
+                            || cookingInfo.coolTime.$error.pattern)">Times must be in 00:00:00 format.</p>
+                        <p class="validation-error" ng-if="cookingInfo.$dirty && cookingInfo.$error.timeIsPresent">Each meal component must have at least one time.</p>
+                    </div>
+
+                </div>
+                <button class="btn btn-primary" ng-click = "addComponent($index)">Add Component</button>
             </div>
         </div>
     </form>
