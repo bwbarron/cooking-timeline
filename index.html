@@ -1,45 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Cooking Timeline</title>
-        <link rel="stylesheet" href="css/main.css"/>
-        <link rel="stylesheet" href="css/flipclock.css">
-    </head>
-    <body>
-        <div id="topHead">
-            <h1>Cooking Thyme</h1>
-            <span id="instruction">Instruction Here</span>
-        </div>
-        <div id="middleTimeline">
-            <div id="timelineContainer"></div>
-            <div id="playhead"></div>
-            <div id="recipes"></div>
-        </div>
-        <div id="bottomInfo">
-            <button class="ytp-play-button ytp-button" aria-live="assertive" tabindex="32" aria-label="Pause">
-                <svg width="128px" height="128px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <defs>
-                        <path id="ytp-12" d="M 11 10 L 17 10 L 17 26 L 11 26 M 20 10 L 26 10 L 26 26 L 20 26">
-                            <animate id="animation" begin="indefinite" attributeType="XML" attributeName="d" fill="freeze" from="M11,10 L17,10 17,26 11,26 M20,10 L26,10 26,26 20,26" to="M11,10 L18,13.74 18,22.28 11,26 M18,13.74 L26,18 26,18 18,22.28" dur="0.1s" keySplines=".4 0 1 1"
-                                     repeatCount="1"></animate>
-                        </path>
-                    </defs>
-                    <use xlink:href="#ytp-12" class="ytp-svg-shadow"></use>
-                    <use xlink:href="#ytp-12" class="ytp-svg-fill"></use>
-                </svg>
-            </button>
-            <div id="timediv">
-                <span class="info">Total Time Remaining: </span><div class="your-clock"></div>
-            </div>
-        </div>
+<head>
+    <meta charset="UTF-8">
+    <title>Cooking Timeline</title>
+    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="../css/flipclock.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.15/angular-ui-router.min.js"></script>
+</head>
+<body>
+<main ng-app = "Timeline">
+    <div ui-view></div>
+</main>
 
-    </body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TimelineMax.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/plugins/CSSPlugin.min.js"></script>
-    <script src="lib/jquery-2.1.4.min.js"></script>
-    <script src="lib/screenfull.min.js"></script>
-    <script src="lib/flipclock.min.js"></script>
-    <script src="js/timeline.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TweenMax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/TimelineMax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.0/plugins/CSSPlugin.min.js"></script>
+<script src="../lib/jquery-2.1.4.min.js"></script>
+<script src="../lib/screenfull.min.js"></script>
+<script src="../lib/flipclock.min.js"></script>
+<script src="../js/timeline.js"></script>
+</body>
 </html>

@@ -23,7 +23,9 @@ $(document).ready(function() {
         name: "chicken",
         preptime: 300,
         cooktime: 2100,
-        cooltime: 180
+        cooltime: 180,
+            cookresource: "oven",
+            prepresource: ""
     },
     {
         name: "kale",
@@ -184,7 +186,7 @@ $(document).ready(function() {
 
     //Tween instantiations
     var animate = TweenMax.to(
-        timelineContainer, containerWidth, {ease: Power0.easeNone, "margin-left": marginPoint}
+        timelineContainer, 10, {ease: Power0.easeNone, "margin-left": marginPoint}
     );
 
     // add tween to timeline
