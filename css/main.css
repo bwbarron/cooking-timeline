@@ -3,6 +3,7 @@ body, #title {
     font-size: 60px;
     font-family: 'Indie Flower', cursive;
     background-image: url(img/ingredients.jpg);
+    background-attachment: fixed;
     background-repeat: no-repeat;
 }
 img {
