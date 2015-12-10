@@ -25,23 +25,28 @@ $(document).ready(function() {
         {
         name: "chicken",
         preptime: 300,
-        prepstart: 0,
         cooktime: 2100,
-        cookstart: 3000
+        cooltime: 180
     },{
-            name: "sauce",
-            preptime: 600,
-            prepstart: 1200,
-            cooktime: 0,
-            cookstart: 1800
+        name: "sauce",
+        preptime: 600,
+        cooktime: 0,
+        cooltime: 0
 
     },
-        {
-            name: "broccoli",
-            preptime: 900,
-            prepstart: 300,
-            cooktime: 1020,
-            cookstart: 1200 }
+    {
+        name: "kale",
+        preptime: 0,
+        cooktime: 200,
+        cooltime: 100
+
+    },
+    {
+        name: "broccoli",
+        preptime: 900,
+        cooktime: 1020,
+        cooltime: 300
+    }
     ];
 
     //compares ingredient times based on cooktime + preptime
@@ -98,7 +103,7 @@ $(document).ready(function() {
         var rowHeight = 60 / ingredients.length;
         console.log("row height = " + rowHeight);
         console.log(rowHeight);
-        var waitTime = containerWidth - item.cooktime - item.preptime;
+        var waitTime = containerWidth - item.cooktime - item.preptime - item.cooltime;
         var row = $("<div></div>")
             .css({
                 "height": "" + rowHeight + "vh",
@@ -106,6 +111,7 @@ $(document).ready(function() {
             })
             .addClass("row");
 
+        var text = $("<span class='innertext'>Wait</span>");
         var wait = $("<div></div>")
             .css({
                 "height": "inherit",
@@ -113,7 +119,11 @@ $(document).ready(function() {
                 "display": "inline-block"
             })
             .addClass("wait");
+        if (waitTime && waitTime > 50) {
+            wait.append(text);
+        }
 
+        text = $("<span class='innertext'>Prepare</span>");
         var prepare = $("<div></div>")
             .css({
                 "height": "inherit",
@@ -121,7 +131,11 @@ $(document).ready(function() {
                 "display": "inline-block"
             })
             .addClass("prepare");
+        if (item.preptime && item.preptime > 80) {
+            prepare.append(text);
+        }
 
+        text = $("<span class='innertext'>Cook</span>");
         var cook = $("<div></div>")
             .css({
             "height": "inherit",
@@ -129,27 +143,47 @@ $(document).ready(function() {
             "display": "inline-block"
             })
             .addClass("cook");
+        if (item.cooktime && item.cooktime > 50) {
+            cook.append(text);
+        }
 
-        row.append(wait).append(prepare).append(cook);
+        text = $("<span class='innertext'>Cool</span>");
+        var cool = $("<div></div>")
+            .css({
+                "height": "inherit",
+                "width": item.cooltime,
+                "display": "inline-block"
+            })
+            .addClass("cool");
+        if (item.cooltime && item.cooltime > 80) {
+            cool.append(text);
+        }
+
+        row.append(wait).append(prepare).append(cook).append(cool);
         rows.push(row);
         timelineContainer.append(row);
-        t1.addLabel("Prepare " + item.name, item.prepstart);
+        t1.addLabel("Prepare the " + item.name, waitTime);
+        t1.addLabel("Cook the " + item.name, item.preptime + waitTime);
+        t1.addLabel("Let the " + item.name + " cool", item.cooktime + item.preptime + waitTime);
+
     }
+
+    console.log(t1.getLabelsArray());
 
     var playhead = $('#playhead');
     var serve = $('#ready');
 
     //Tween instantiations
     var animate = TweenMax.to(
-        timelineContainer, containerWidth, {ease: Power0.easeNone, "margin-left": marginPoint}
+        timelineContainer, 10, {ease: Power0.easeNone, "margin-left": marginPoint}
     );
 
-    var yoyoserve = TweenMax.to(
-        serve, 1, {"padding-right": -10}
-    ).yoyo(true);
+    //var yoyoserve = TweenMax.to(
+    //    serve, 1, {"padding-right": -10}
+    //).yoyo(true);
 
     // add tween to timeline
-    t1.add(animate).add(yoyoserve);
+    t1.add(animate);
 
     // flip Clock instantiation
     var clock = $('.your-clock').FlipClock(containerWidth,{

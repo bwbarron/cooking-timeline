@@ -29,12 +29,17 @@ h1 {
 }
 
 .prepare {
-    background-color: #4BA3AF;
+    background-color: #1e7b1e;
     text-align: left;
 }
 
 .cook {
     background-color: #B33529;
+    text-align: left;
+}
+
+.cool {
+    background-color: #4BA3AF;
     text-align: left;
 }
 
@@ -78,6 +83,15 @@ button {
     color: white;
 }
 
+.innertext {
+    position: absolute;
+    opacity: 0.90;
+    margin-left: 4px;
+    color: white;
+    font-size: 4vh;
+    align-content: center;
+}
+
 #instruction {
     float: right;
     font-size: 4.5vw;
@@ -115,9 +129,9 @@ svg:hover {
 #playhead {
     background-color: #343434;
     position: fixed;
-    top: 10vh;
+    top: 20vh;
     left: 50%;
-    height: 80vh;
+    height: 60vh;
     width: 5px;
     right: 50%
 }
