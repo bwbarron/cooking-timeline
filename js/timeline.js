@@ -20,20 +20,20 @@ $(document).ready(function() {
     //dummy data
     var ingredients = [
         {
-        name: "chicken",
-        preptime: 300,
-        cooktime: 2100,
-        cooltime: 180,
+            name: "chicken",
+            preptime: 300,
+            cooktime: 2100,
+            cooltime: 180,
             cookresource: "oven",
             prepresource: ""
-    },
-    {
-        name: "kale",
-        preptime: 0,
-        cooktime: 200,
-        cooltime: 100
+        },
+        {
+            name: "kale",
+            preptime: 0,
+            cooktime: 200,
+            cooltime: 100
 
-    },
+        },
         {
             name: "drinks",
             preptime: 300,
@@ -41,12 +41,12 @@ $(document).ready(function() {
             cooltime: 0
 
         },
-    {
-        name: "broccoli",
-        preptime: 900,
-        cooktime: 1020,
-        cooltime: 300
-    }
+        {
+            name: "broccoli",
+            preptime: 900,
+            cooktime: 1020,
+            cooltime: 300
+        }
     ];
 
     //compares ingredient times based on cooktime + preptime
@@ -86,13 +86,13 @@ $(document).ready(function() {
     // add timeline div to doc
     var timelineContainer = $('#timelineContainer');
     timelineContainer.css({
-            "position": "fixed",
-            "width": containerWidth,
-            "height": "inherit",
-            "margin-left": windowWidth / 2,
-            "overflow": "hidden",
-            "z-index": "-1"
-        });
+        "position": "fixed",
+        "width": containerWidth,
+        "height": "inherit",
+        "margin-left": windowWidth / 2,
+        "overflow": "hidden",
+        "z-index": "-1"
+    });
 
     // New timeline instance
     var t1 = new TimelineMax({onStart: start, onUpdate: update, onComplete: complete});
@@ -152,9 +152,9 @@ $(document).ready(function() {
         text = $("<span class='innertext'>Cook</span>");
         var cook = $("<div></div>")
             .css({
-            "height": "inherit",
-            "width": item.cooktime,
-            "display": "inline-block"
+                "height": "inherit",
+                "width": item.cooktime,
+                "display": "inline-block"
             })
             .addClass("cook");
         if (item.cooktime && item.cooktime > 50) {
