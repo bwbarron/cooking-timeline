@@ -1,10 +1,21 @@
+@import url(https://fonts.googleapis.com/css?family=Indie+Flower);
+
+html {
+    background: url(../img/bg.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
 body, #title {
     /*font-family: sans-serif; */
     font-size: 60px;
     font-family: 'Indie Flower', cursive;
-    background-image: url(img/ingredients.jpg);
+    background-image: url(../img/ingredients.jpg);
     background-attachment: fixed;
     background-repeat: no-repeat;
+    margin: 0;
 }
 img {
     vertical-align: middle;
@@ -31,8 +42,8 @@ input {
     margin-left: 10px;
 }
 
-.dish-container {
-    border: solid;
+h1 {
+    font-size: 5vmin;
     padding: 1em;
     margin: 1em;
     background-color: white;
@@ -54,26 +65,135 @@ input {
 .dish-info {
     border-bottom: 3px solid #ccc;
     padding-bottom: 1em;
+    color: #FFF;
+    display: inline;
+    text-align: right;
 }
 
-#box {
-    background-color: #88ce02;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 100px;
-    height: 100px;
-    transform: translate(-50%, -50%);
-    z-index: 1;
+.wait {
+    background-color: #D3DBDE;
+    opacity: 0.5;
+    text-align: left;
 }
 
-#box2 {
-    background-color: #2f59ce;
+.prepare {
+    background-color: #1e7b1e;
+    text-align: left;
+}
+
+.cook {
+    background-color: #B33529;
+    text-align: left;
+}
+
+.cool {
+    background-color: #4BA3AF;
+    text-align: left;
+}
+
+.row {
+    padding-bottom: 8px;
+
+}
+
+button {
+   margin: 16px;
+   outline: none;
+   border: 0px solid;
+   background: transparent;
+}
+
+.ytp-play-button {
+   fill: #fff;
+   opacity: 0.85;
+}
+
+.ytp-play-button:hover {
+   cursor: pointer;
+   opacity: 1;
+}
+
+#timediv {
+    width: 40vw;
+    height: 20vh;
+    float: right;
+    text-align: right;
+    overflow: hidden;
+}
+
+.your-clock {
+    display: inline-block;
+    width: auto;
+}
+
+.info {
+    padding: 4px;
+    font-size: 3vw;
+    display: inline;
+    color: white;
+}
+
+.innertext {
     position: absolute;
-    top: 25%;
+    opacity: 0.90;
+    margin-left: 4px;
+    color: white;
+    font-size: 4vh;
+    align-content: center;
+}
+
+#instruction {
+    float: right;
+    font-size: 5vmin;
+    color: #FFF;
+    padding-right: 24px;
+}
+
+#pause {
+    display: none;
+    fill: #FFF;
+    height: 10vh;
+    padding: 24px;
+}
+
+
+svg:hover {
+    cursor: pointer
+}
+
+#topHead, #bottomInfo {
+    height: 20vh;
+}
+
+#middleTimeline {
+    height: 60vh;
+}
+
+#playhead {
+    background-color: #343434;
+    position: fixed;
+    top: 20vh;
     left: 50%;
-    width: 100px;
-    height: 100px;
-    transform: translate(-50%, -50%);
-    z-index: 1;
+    height: 60vh;
+    width: 5px;
+    right: 50%
+}
+
+#recipes {
+    position: fixed;
+    left: 0;
+    height: 60vh;
+    width: 10vh;
+}
+
+.recipeRow {
+    opacity: 0.25;
+    height: inherit;
+    margin-bottom: 8px;
+
+}
+
+.label {
+    font-size: 8vh;
+    margin-left: 4px;
 }
