@@ -15,7 +15,7 @@ body {
 }
 
 h1 {
-    font-size: 4vw;
+    font-size: 5vmin;
     padding: 1em;
     color: #FFF;
     display: inline;
@@ -78,7 +78,7 @@ button {
 
 .info {
     padding: 8px;
-    font-size: 4vw;
+    font-size: 3.5vw;
     display: inline;
     color: white;
 }
@@ -94,7 +94,7 @@ button {
 
 #instruction {
     float: right;
-    font-size: 4.5vw;
+    font-size: 5vmin;
     color: #FFF;
     padding-right: 24px;
 }

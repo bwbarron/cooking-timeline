@@ -2,10 +2,6 @@
  * Created by Brad on 12/6/15.
  */
 $(document).ready(function() {
-    //
-    //$('head style[type="text/css"]').attr('type','text/less');
-    //less.env = 'development';
-    //less.refreshStyles();
 
     //for fullscreen
     $('#btn').on('click', function() {
@@ -41,6 +37,13 @@ $(document).ready(function() {
         cooltime: 100
 
     },
+        {
+            name: "drinks",
+            preptime: 300,
+            cooktime: 0,
+            cooltime: 0
+
+        },
     {
         name: "broccoli",
         preptime: 900,
@@ -101,9 +104,12 @@ $(document).ready(function() {
     for (i = 0; i < ingredients.length; ++i) {
         var item = ingredients[i];
         var rowHeight = 60 / ingredients.length;
-        console.log("row height = " + rowHeight);
-        console.log(rowHeight);
-        var waitTime = containerWidth - item.cooktime - item.preptime - item.cooltime;
+        item.waitTime = containerWidth - item.cooktime - item.preptime - item.cooltime;
+        if (item.waitTime < 0) {
+            item.waitTime = 0;
+        }
+
+
         var row = $("<div></div>")
             .css({
                 "height": "" + rowHeight + "vh",
@@ -115,11 +121,11 @@ $(document).ready(function() {
         var wait = $("<div></div>")
             .css({
                 "height": "inherit",
-                "width": waitTime,
+                "width": item.waitTime,
                 "display": "inline-block"
             })
             .addClass("wait");
-        if (waitTime && waitTime > 50) {
+        if (item.waitTime && item.waitTime > 50) {
             wait.append(text);
         }
 
@@ -159,16 +165,16 @@ $(document).ready(function() {
             cool.append(text);
         }
 
+        //build divs
         row.append(wait).append(prepare).append(cook).append(cool);
         rows.push(row);
         timelineContainer.append(row);
-        t1.addLabel("Prepare the " + item.name, waitTime);
-        t1.addLabel("Cook the " + item.name, item.preptime + waitTime);
-        t1.addLabel("Let the " + item.name + " cool", item.cooktime + item.preptime + waitTime);
+        //set timeline labels
+        t1.addLabel("Prepare the " + item.name, item.waitTime);
+        t1.addLabel("Cook the " + item.name, item.preptime + item.waitTime);
+        t1.addLabel("Let the " + item.name + " cool", item.cooktime + item.preptime + item.waitTime);
 
     }
-
-    console.log(t1.getLabelsArray());
 
     var playhead = $('#playhead');
     var serve = $('#ready');
@@ -206,7 +212,6 @@ $(document).ready(function() {
             $('#play').attr('display', 'none');
             t1.resume();
         }
-        console.log(t1.currentLabel());
     }
 
 
