@@ -1,6 +1,6 @@
 /**
  * Created by Brad on 12/6/15.
- */
+
 $(document).ready(function() {
 
     //for fullscreen
@@ -245,3 +245,4 @@ $(document).ready(function() {
         console.log('complete');
     }
 });
+ */

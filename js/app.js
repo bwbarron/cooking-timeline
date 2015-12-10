@@ -8,7 +8,7 @@ angular.module("Timeline", ["ui.router"])
             })
             .state('timeline', {
                 url: '/timeline',
-                templateUrl: 'views/timeline.hmtl',
+                templateUrl: 'views/timeline.html',
                 controller: 'TimelineController'
             });
         $urlRouterProvider.otherwise('/form');
@@ -40,7 +40,7 @@ angular.module("Timeline", ["ui.router"])
             }
         };
     })
-    .controller("FormController", function ($scope) {
+    .controller("FormController", function ($scope, FoodService) {
         "use strict";
         $scope.methods = ['Oven', 'Microwave', 'Burner', 'Grill'];
         $scope.preps = ['Microwave', 'Mixer', 'Blender', 'Other'];
@@ -55,6 +55,10 @@ angular.module("Timeline", ["ui.router"])
             $scope.meal.splice(index, 1);
         };
 
+        $scope.submit = function() {
+            FoodService.setMeal($scope.meal)
+        }
+
     })
     .controller("TimelineController", function ($scope, FoodService) {
         "use strict";
@@ -64,11 +68,13 @@ angular.module("Timeline", ["ui.router"])
 
 
         //for fullscreen
+        /*
         $('#btn').on('click', function() {
             if (screenfull.enabled) {
                 screenfull.request();
             }
         });
+        */
 
         //global vars
         var windowWidth = $(window).width();
@@ -110,6 +116,7 @@ angular.module("Timeline", ["ui.router"])
             }
         ];
         */
+
 
         //compares ingredient times based on cooktime + preptime
         function compareIng(a,b) {
@@ -309,10 +316,10 @@ angular.module("Timeline", ["ui.router"])
 
     })
     .service('FoodService', function() {
-        var meals = [];
+        var meals;
 
-        var addMeal = function(obj) {
-            meals.push(obj);
+        var setMeal = function(obj) {
+            meals = obj;
         };
 
         var getMeals = function() {
@@ -320,7 +327,7 @@ angular.module("Timeline", ["ui.router"])
         };
 
         return {
-            addMeal: addMeal,
+            setMeal: setMeal,
             getMeals: getMeals
         };
     });
