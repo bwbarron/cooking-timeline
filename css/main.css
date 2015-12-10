@@ -24,6 +24,10 @@ body, #meal {
     border-bottom: 1px solid #ccc;
 }
 
+.validation-error {
+    color: red;
+}
+
 .dish-info {
     border-bottom: 3px solid #ccc;
     padding-bottom: 1em;
