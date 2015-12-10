@@ -5,6 +5,10 @@ body, #title {
     background-image: url(img/ingredients.jpg);
     background-repeat: no-repeat;
 }
+img {
+    vertical-align: middle;
+    margin-bottom: 20px;
+}
 
 input {
     margin-bottom: 20px;
@@ -18,7 +22,7 @@ input {
     margin-bottom: 5px;
 }
 
-#title, #addDish, #meal {
+#title, #addDish, #meal, #generate {
     margin-left: 10px;
 }
 
@@ -36,6 +40,10 @@ input {
 
 .component-container {
     border-bottom: 1px solid #ccc;
+}
+
+.validation-error {
+    color: red;
 }
 
 .dish-info {

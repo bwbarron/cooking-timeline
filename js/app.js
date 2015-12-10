@@ -9,7 +9,6 @@ angular.module("Timeline", ["ui.router"])
             });
         $urlRouterProvider.otherwise('/form');
     })
-
     .directive('timeIsPresent', function() {
         return {
             require: 'ngModel',
@@ -32,28 +31,16 @@ angular.module("Timeline", ["ui.router"])
     .controller("FormController", function ($scope) {
         "use strict";
         $scope.methods = ['Oven', 'Microwave', 'Burner', 'Grill'];
+        $scope.preps = ['Microwave', 'Mixer', 'Blender', 'Other'];
         $scope.meal = [];
-        $scope.counter = 0;
 
-        $scope.addDish = function() {
-            var blankDish = {id: $scope.counter, name: '', components: []};
-            $scope.meal.push(blankDish);
-            $scope.addComponent($scope.meal.length - 1);
-            $scope.counter++;
+        $scope.addComponent = function() {
+            var blankComponent = {name: '', prepTime: '', cookTime: '', coolTime: '', method: ''};
+            $scope.meal.push(blankComponent);
         };
 
-        $scope.addComponent = function(index) {
-            var blankComponent = {id: $scope.counter, name: '', prepTime: '', cookTime: '', coolTime: '', method: ''};
-            $scope.meal[index].components.push(blankComponent);
-            $scope.counter++;
-        };
-
-        $scope.removeDish = function(index) {
+        $scope.removeComponent = function(index) {
             $scope.meal.splice(index, 1);
-        };
-
-        $scope.removeComponent = function(index, parentIndex) {
-            $scope.meal[parentIndex].components.splice(index, 1);
         };
 
     })
