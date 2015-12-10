@@ -1,9 +1,17 @@
 <div>
-    <h1 id="meal">Your Meal:</h1>
-    <button id="addDish" class="btn btn-primary" ng-click = "addComponent()">Add Dish</button>
+    <div class="header">
+        <h1 id="title">Thymeline<img src="css/img/chef20.png" alt=""/></h1>
+
+    </div>
+    <link rel="icon" href="css/svg/chef20.svg"/>
+    <div>
+        <h1 id="meal">Your meal:</h1>
+        <button id="addDish" class="btn btn-primary" ng-click = "addComponent()">Add Dish</button>
+    </div>
     <form class="cooking form-inline" name="cookingInfo" novalidate>
         <div class="form-group">
             <div class = "dish-container" ng-repeat = "dish in meal track by $index">
+
                 <ng-form name = "componentNameForm" novalidate>
                     <div class="form-section">
                         <input type="text" class="form-control" name="componentName" placeholder = "Enter dish name"
@@ -14,7 +22,6 @@
                 </ng-form>
 
                 <div ng-form name="timeForm" class="timeForm" ng-model="timeForm" novalidate>
-                <!--<div class="times" ng-model="timeForm" name="timeForm">-->
                     <div class="form-section">
                         <label for="prepTime" class="form-group">Prep Time:</label>
                         <input type="text" class="form-control" name="prepTime" id="prepTime" placeholder = "00:00:00" ng-model="meal[$index].prepTime"
@@ -51,8 +58,10 @@
                     >
                         Each meal component must have at least one nonzero time.
                     </p>
+
                 </div>
             </div>
         </div>
     </form>
+    <button class="btn btn-success" id="generate">Generate Cooking Timeline!</button>
 </div>

@@ -1,10 +1,33 @@
-body, #meal {
+body, #title {
     /*font-family: sans-serif; */
-    font-family: 'Handlee', cursive;
+    font-size: 60px;
+    font-family: 'Indie Flower', cursive;
     background-image: url(img/ingredients.jpg);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+img {
+    vertical-align: middle;
+    margin-bottom: 20px;
 }
 
-#meal, #addDish {
+input {
+    margin-bottom: 20px;
+}
+
+#meal {
+    font-family: 'Indie Flower', cursive;
+}
+
+#generate {
+    margin-bottom: 5px;
+}
+
+#componentBtn {
+    margin-bottom: 5px;
+}
+
+#title, #addDish, #meal, #generate {
     margin-left: 10px;
 }
 

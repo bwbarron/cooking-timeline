@@ -8,7 +8,7 @@ angular.module("Timeline", ["ui.router"])
             });
         $urlRouterProvider.otherwise('/form');
     })
-    .directive('timeIsPresent', function(timeInputs) {
+    .directive('timeIsPresent', function() {
         return {
             require: 'ngModel',
             link: function(scope, elem, attrs, controller) {
@@ -38,6 +38,7 @@ angular.module("Timeline", ["ui.router"])
     .controller("FormController", function ($scope) {
         "use strict";
         $scope.methods = ['Oven', 'Microwave', 'Burner', 'Grill'];
+        $scope.preps = ['Microwave', 'Mixer', 'Blender', 'Other'];
         $scope.meal = [];
 
         $scope.addComponent = function() {
