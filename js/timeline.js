@@ -10,6 +10,7 @@ $(document).ready(function() {
         }
     });
 
+    //global vars
     var windowWidth = $(window).width();
     var startSeconds;
     var animating = false;
@@ -76,6 +77,7 @@ $(document).ready(function() {
         return time;
     }
 
+    //calc the container width based on time
     var containerWidth = findContainerTotalTime(ingredients);
     var marginPoint = -containerWidth + (windowWidth / 2);
 
@@ -95,6 +97,7 @@ $(document).ready(function() {
 
     var i;
     var rows =[];
+    //dynamic html based on ingredients
     for (i = 0; i < ingredients.length; ++i) {
         var item = ingredients[i];
         var rowHeight = 60 / ingredients.length;
