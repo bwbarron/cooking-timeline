@@ -19,6 +19,10 @@ input {
     font-family: 'Indie Flower', cursive;
 }
 
+#generate {
+    margin-bottom: 5px;
+}
+
 #componentBtn {
     margin-bottom: 5px;
 }
