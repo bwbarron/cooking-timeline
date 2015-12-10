@@ -23,12 +23,6 @@ $(document).ready(function() {
         preptime: 300,
         cooktime: 2100,
         cooltime: 180
-    },{
-        name: "sauce",
-        preptime: 600,
-        cooktime: 0,
-        cooltime: 0
-
     },
     {
         name: "kale",
@@ -117,6 +111,15 @@ $(document).ready(function() {
             })
             .addClass("row");
 
+        var recipeRow = $("<div class='label'>" + item.name + "</div>")
+            .css({
+                "height": "" + rowHeight + "vh"
+            })
+            .addClass('recipeRow');
+
+        var rs = $('#recipes');
+        rs.append(recipeRow);
+
         var text = $("<span class='innertext'>Wait</span>");
         var wait = $("<div></div>")
             .css({
@@ -176,17 +179,10 @@ $(document).ready(function() {
 
     }
 
-    var playhead = $('#playhead');
-    var serve = $('#ready');
-
     //Tween instantiations
     var animate = TweenMax.to(
-        timelineContainer, 10, {ease: Power0.easeNone, "margin-left": marginPoint}
+        timelineContainer, containerWidth, {ease: Power0.easeNone, "margin-left": marginPoint}
     );
-
-    //var yoyoserve = TweenMax.to(
-    //    serve, 1, {"padding-right": -10}
-    //).yoyo(true);
 
     // add tween to timeline
     t1.add(animate);
@@ -202,19 +198,13 @@ $(document).ready(function() {
         if (animating) {
             animating = false;
             clock.stop();
-            $('#play').attr('display', 'block');
-            $('#pause').attr('display', 'none');
             t1.pause();
         } else {
             animating = true;
             clock.start();
-            $('#pause').attr('display', 'block');
-            $('#play').attr('display', 'none');
             t1.resume();
         }
     }
-
-
 
     //Animated play/pause button
     var flip = true,
@@ -246,7 +236,7 @@ $(document).ready(function() {
     function complete() {
         animating = false;
         finished = true;
-        $('#ready').css({'display': 'block'});
+        $('#instruction').text("Your food is ready!");
         console.log('complete');
     }
 });
