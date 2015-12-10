@@ -2,6 +2,11 @@
  * Created by Brad on 12/6/15.
  */
 $(document).ready(function() {
+    //
+    //$('head style[type="text/css"]').attr('type','text/less');
+    //less.env = 'development';
+    //less.refreshStyles();
+
     //for fullscreen
     $('#btn').on('click', function() {
         if (screenfull.enabled) {
@@ -22,22 +27,38 @@ $(document).ready(function() {
         preptime: 300,
         prepstart: 0,
         cooktime: 2100,
-        cookstart: 300
+        cookstart: 3000
+    },{
+            name: "sauce",
+            preptime: 600,
+            prepstart: 1200,
+            cooktime: 0,
+            cookstart: 1800
+
     },
         {
-        name: "broccoli",
-        preptime: 900,
-        prepstart: 300,
-        cooktime: 1020,
-        cookstart: 1200
-    },
-        {
-        name: "sauce",
-        preptime: 600,
-        prepstart: 1200,
-        cooktime: 0,
-        cookstart: 1800 }
+            name: "broccoli",
+            preptime: 900,
+            prepstart: 300,
+            cooktime: 1020,
+            cookstart: 1200 }
     ];
+
+    //compares ingredient times based on cooktime + preptime
+    function compareIng(a,b) {
+        Ta = a.cooktime + a.preptime;
+        Tb = b.cooktime + b.preptime;
+        if (Ta < Tb) {
+            return -1;
+        }
+        if (Ta > Tb) {
+            return 1;
+        }
+        return 0;
+    }
+
+    //Sort the ingredients array so the timeline is cleaner
+    ingredients.sort(compareIng);
 
     //Get the full width of the timeline in pixels
     function findContainerTotalTime(ingredients) {
@@ -55,7 +76,6 @@ $(document).ready(function() {
 
     var containerWidth = findContainerTotalTime(ingredients);
     var marginPoint = -containerWidth + (windowWidth / 2);
-    console.log(containerWidth);
 
     // add timeline div to doc
     var timelineContainer = $('#timelineContainer');
@@ -68,18 +88,20 @@ $(document).ready(function() {
             "z-index": "-1"
         });
 
+    // New timeline instance
     var t1 = new TimelineMax({onStart: start, onUpdate: update, onComplete: complete});
 
     var i;
     var rows =[];
     for (i = 0; i < ingredients.length; ++i) {
         var item = ingredients[i];
-        var rowHeight = timelineContainer.height() / ingredients.length;
+        var rowHeight = 60 / ingredients.length;
+        console.log("row height = " + rowHeight);
         console.log(rowHeight);
         var waitTime = containerWidth - item.cooktime - item.preptime;
         var row = $("<div></div>")
             .css({
-                "height": "" + rowHeight + "px",
+                "height": "" + rowHeight + "vh",
                 "width": "inherit"
             })
             .addClass("row");
@@ -111,46 +133,51 @@ $(document).ready(function() {
         row.append(wait).append(prepare).append(cook);
         rows.push(row);
         timelineContainer.append(row);
-        //t1.addLabel("Prepare " + item.name, )
+        t1.addLabel("Prepare " + item.name, item.prepstart);
     }
 
     var playhead = $('#playhead');
+    var serve = $('#ready');
 
-    var timeline = new TimelineMax({
-        onStart: start,
-        onUpdate: update,
-        onComplete: complete
-    });
-
-
-
-
-    //Tween
+    //Tween instantiations
     var animate = TweenMax.to(
-        timelineContainer, 5, {ease: Power0.easeNone, "margin-left": marginPoint}
+        timelineContainer, containerWidth, {ease: Power0.easeNone, "margin-left": marginPoint}
     );
 
-    t1.add(animate);
+    var yoyoserve = TweenMax.to(
+        serve, 1, {"padding-right": -10}
+    ).yoyo(true);
 
+    // add tween to timeline
+    t1.add(animate).add(yoyoserve);
+
+    // flip Clock instantiation
+    var clock = $('.your-clock').FlipClock(containerWidth,{
+        countdown: true,
+        clockFace: 'MinuteCounter'
+    });
+
+    // When the user clicks the play/pause button
     function togglePause() {
         if (animating) {
             animating = false;
+            clock.stop();
             $('#play').attr('display', 'block');
             $('#pause').attr('display', 'none');
             t1.pause();
         } else {
             animating = true;
+            clock.start();
             $('#pause').attr('display', 'block');
             $('#play').attr('display', 'none');
             t1.resume();
         }
+        console.log(t1.currentLabel());
     }
 
-    $(".play-button").click(function() {
-
-    });
 
 
+    //Animated play/pause button
     var flip = true,
         pause = "M11,10 L18,13.74 18,22.28 11,26 M18,13.74 L26,18 26,18 18,22.28",
         play = "M11,10 L17,10 17,26 11,26 M20,10 L26,10 26,26 20,26",
@@ -174,12 +201,13 @@ $(document).ready(function() {
     }
 
     function update() {
-        //console.log(timeline.progress().toFixed(2));
+        $('#instruction').text("Now: " + t1.currentLabel());
     }
 
     function complete() {
         animating = false;
         finished = true;
+        $('#ready').css({'display': 'block'});
         console.log('complete');
     }
 });

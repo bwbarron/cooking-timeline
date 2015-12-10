@@ -15,7 +15,7 @@ body {
 }
 
 h1 {
-    font-size: 48px;
+    font-size: 4vw;
     padding: 1em;
     color: #FFF;
     display: inline;
@@ -44,7 +44,7 @@ h1 {
 }
 
 button {
-   margin: 16x
+   margin: 16px;
    outline: none;
    border: 0px solid;
    background: transparent;
@@ -52,7 +52,7 @@ button {
 
 .ytp-play-button {
    fill: #fff;
-   opacity: 0.75;
+   opacity: 0.85;
 }
 
 .ytp-play-button:hover {
@@ -60,11 +60,44 @@ button {
    opacity: 1;
 }
 
+#timediv {
+    width: 40vw;
+    float: right;
+    text-align: right;
+}
+
+.your-clock {
+    display: inline-block;
+    width: auto;
+}
+
+.info {
+    padding: 8px;
+    font-size: 4vw;
+    display: inline;
+    color: white;
+}
+
+#instruction {
+    float: right;
+    font-size: 4.5vw;
+    color: #FFF;
+    padding-right: 24px;
+}
+
 #pause {
     display: none;
     fill: #FFF;
     height: 10vh;
     padding: 24px;
+}
+
+#ready {
+    float: right;
+    display: none;
+    padding-right: 10vw;
+    width: 25vh;
+    fill: #FFF
 }
 
 svg:hover {
@@ -82,7 +115,7 @@ svg:hover {
 #playhead {
     background-color: #343434;
     position: fixed;
-    top: 0;
+    top: 10vh;
     left: 50%;
     height: 80vh;
     width: 5px;
