@@ -36,7 +36,7 @@
                                 pattern="[0-9][0-9][:][0-9][0-9][:][0-9][0-9]" time-is-present/>
                         <label for="methods" class="form-group">Resource:</label>
                         <select class="form-control" name="methods" id="methods" ng-options = "m as m for m in methods"
-                                ng-model = "meal[$parent.$index].components[$index].method"></select>
+                                ng-model = "meal[$index].method"></select>
                     </div>
 
                     <div class="form-section">
