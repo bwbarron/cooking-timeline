@@ -56,7 +56,8 @@ angular.module("Timeline", ["ui.router"])
         };
 
         $scope.submit = function() {
-            FoodService.setMeal($scope.meal)
+            FoodService.setMeal($scope.meal);
+            console.log($scope.meal);
         }
 
     })
@@ -65,6 +66,14 @@ angular.module("Timeline", ["ui.router"])
 
         $scope.meals = FoodService.getMeals();
         var ingredients = $scope.meals;
+
+        function parseSeconds(timeString) {
+            var hours = 3600 * parseInt(timeString.splice(0,2));
+            var minutes = 60 * parseInt(timeString.splice(3,5));
+            var seconds = parseInt(timeString.splice(6,8));
+
+            return hours + minutes + seconds;
+        }
 
 
         //for fullscreen
@@ -75,6 +84,8 @@ angular.module("Timeline", ["ui.router"])
             }
         });
         */
+
+
 
         //global vars
         var windowWidth = $(window).width();
@@ -120,8 +131,8 @@ angular.module("Timeline", ["ui.router"])
 
         //compares ingredient times based on cooktime + preptime
         function compareIng(a,b) {
-            var Ta = a.cooktime + a.preptime;
-            var Tb = b.cooktime + b.preptime;
+            var Ta = a.cookTime + a.prepTime;
+            var Tb = b.cookTime + b.prepTime;
             if (Ta < Tb) {
                 return -1;
             }
@@ -140,7 +151,7 @@ angular.module("Timeline", ["ui.router"])
             var i;
             for (i = 0; i < ingredients.length; ++i) {
                 var item = ingredients[i];
-                var total = item.preptime + item.cooktime;
+                var total = item.prepTime + item.cookTime;
                 if (total > time) {
                     time = total;
                 }
@@ -172,7 +183,7 @@ angular.module("Timeline", ["ui.router"])
         for (i = 0; i < ingredients.length; ++i) {
             var item = ingredients[i];
             var rowHeight = 60 / ingredients.length;
-            item.waitTime = containerWidth - item.cooktime - item.preptime - item.cooltime;
+            item.waitTime = containerWidth - item.cookTime - item.prepTime - item.coolTime;
             if (item.waitTime < 0) {
                 item.waitTime = 0;
             }
@@ -210,11 +221,11 @@ angular.module("Timeline", ["ui.router"])
             var prepare = $("<div></div>")
                 .css({
                     "height": "inherit",
-                    "width": item.preptime,
+                    "width": item.prepTime,
                     "display": "inline-block"
                 })
                 .addClass("prepare");
-            if (item.preptime && item.preptime > 80) {
+            if (item.prepTime && item.prepTime > 80) {
                 prepare.append(text);
             }
 
@@ -222,11 +233,11 @@ angular.module("Timeline", ["ui.router"])
             var cook = $("<div></div>")
                 .css({
                     "height": "inherit",
-                    "width": item.cooktime,
+                    "width": item.cookTime,
                     "display": "inline-block"
                 })
                 .addClass("cook");
-            if (item.cooktime && item.cooktime > 50) {
+            if (item.cookTime && item.cookTime > 50) {
                 cook.append(text);
             }
 
@@ -234,11 +245,11 @@ angular.module("Timeline", ["ui.router"])
             var cool = $("<div></div>")
                 .css({
                     "height": "inherit",
-                    "width": item.cooltime,
+                    "width": item.coolTime,
                     "display": "inline-block"
                 })
                 .addClass("cool");
-            if (item.cooltime && item.cooltime > 80) {
+            if (item.coolTime && item.coolTime > 80) {
                 cool.append(text);
             }
 
@@ -248,8 +259,8 @@ angular.module("Timeline", ["ui.router"])
             timelineContainer.append(row);
             //set timeline labels
             t1.addLabel("Prepare the " + item.name, item.waitTime);
-            t1.addLabel("Cook the " + item.name, item.preptime + item.waitTime);
-            t1.addLabel("Let the " + item.name + " cool", item.cooktime + item.preptime + item.waitTime);
+            t1.addLabel("Cook the " + item.name, item.prepTime + item.waitTime);
+            t1.addLabel("Let the " + item.name + " cool", item.cookTime + item.prepTime + item.waitTime);
 
         }
 
