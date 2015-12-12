@@ -63,9 +63,11 @@ angular.module("Timeline", ["ui.router"])
     .controller("TimelineController", function ($scope, FoodService) {
         "use strict";
 
+        //Get meals from service
         $scope.meals = FoodService.getMeals();
         var ingredients = $scope.meals;
 
+        //parsing function
         function parseSeconds(timeString) {
             if (timeString === "" || timeString == undefined) {
                 return 0;
@@ -76,6 +78,8 @@ angular.module("Timeline", ["ui.router"])
 
             return hours + minutes + seconds;
         }
+
+        //parse the string inputs and convert to seconds
         var x;
         for (x = 0; x < ingredients.length; ++x) {
             var item2 = ingredients[x];
@@ -83,17 +87,6 @@ angular.module("Timeline", ["ui.router"])
             item2.cookTime = parseSeconds(item2.cookTime);
             item2.coolTime = parseSeconds(item2.coolTime);
         }
-
-        //for fullscreen
-        /*
-        $('#btn').on('click', function() {
-            if (screenfull.enabled) {
-                screenfull.request();
-            }
-        });
-        */
-
-
 
         //global vars
         var windowWidth = $(window).width();
@@ -151,6 +144,7 @@ angular.module("Timeline", ["ui.router"])
 
         var i;
         var rows =[];
+
         //dynamic html based on ingredients
         for (i = 0; i < ingredients.length; ++i) {
             var item = ingredients[i];
@@ -281,7 +275,6 @@ angular.module("Timeline", ["ui.router"])
 
         //callback functions for elements if we want
         function start() {
-            console.log('timeline started');
             startSeconds = new Date().getTime() / 1000;
             animating = true;
         }
@@ -294,10 +287,10 @@ angular.module("Timeline", ["ui.router"])
             animating = false;
             finished = true;
             $('#instruction').text("Your food is ready!");
-            console.log('complete');
         }
 
     })
+    //Angular service to easily share data between controllers
     .service('FoodService', function() {
         var meals;
 
