@@ -225,7 +225,7 @@ angular.module("Timeline", ["ui.router"])
             timelineContainer.append(row);
             //set timeline labels
             t1.addLabel("Prepare the " + item.name, item.waitTime);
-            t1.addLabel("Cook the " + item.name, item.prepTime + item.waitTime);
+            t1.addLabel("Cook the " + item.name + " with the " + item.method, item.prepTime + item.waitTime);
             t1.addLabel("Let the " + item.name + " cool", item.cookTime + item.prepTime + item.waitTime);
 
         }
