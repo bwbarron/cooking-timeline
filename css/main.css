@@ -1,13 +1,13 @@
 @import url(https://fonts.googleapis.com/css?family=Indie+Flower);
 
-/*#bg {*/
-    /*background: url(../img/bg.jpg) no-repeat center center fixed;*/
-    /*-webkit-background-size: cover;*/
-    /*-moz-background-size: cover;*/
-    /*-o-background-size: cover;*/
-    /*background-size: cover;*/
-    /*z-index: -1;*/
-/*}*/
+#bg {
+    background: url(../img/bg.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    z-index: -1;
+}
 
 h1, body, #meal, #title, #instruction, #info {
     font-family: 'Indie Flower', cursive;
@@ -201,7 +201,8 @@ svg:hover {
     left: 50%;
     height: 60vh;
     width: 5px;
-    right: 50%
+    right: 50%;
+    z-index: 2;
 }
 
 #recipes {

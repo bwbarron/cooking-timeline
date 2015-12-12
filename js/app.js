@@ -57,7 +57,6 @@ angular.module("Timeline", ["ui.router"])
 
         $scope.submit = function() {
             FoodService.setMeal($scope.meal);
-            console.log($scope.meal);
         }
 
     })
@@ -68,13 +67,22 @@ angular.module("Timeline", ["ui.router"])
         var ingredients = $scope.meals;
 
         function parseSeconds(timeString) {
-            var hours = 3600 * parseInt(timeString.splice(0,2));
-            var minutes = 60 * parseInt(timeString.splice(3,5));
-            var seconds = parseInt(timeString.splice(6,8));
+            if (timeString === "" || timeString == undefined) {
+                return 0;
+            }
+            var hours = 3600 * parseInt(timeString.slice(0,2));
+            var minutes = 60 * parseInt(timeString.slice(3,5));
+            var seconds = parseInt(timeString.slice(6,8));
 
             return hours + minutes + seconds;
         }
-
+        var x;
+        for (x = 0; x < ingredients.length; ++x) {
+            var item2 = ingredients[x];
+            item2.prepTime = parseSeconds(item2.prepTime);
+            item2.cookTime = parseSeconds(item2.cookTime);
+            item2.coolTime = parseSeconds(item2.coolTime);
+        }
 
         //for fullscreen
         /*
@@ -92,42 +100,6 @@ angular.module("Timeline", ["ui.router"])
         var startSeconds;
         var animating = false;
         var finished = false;
-
-
-        //dummy data
-        /*
-        var ingredients = [
-            {
-                name: "chicken",
-                preptime: 300,
-                cooktime: 2100,
-                cooltime: 180,
-                cookresource: "oven",
-                prepresource: ""
-            },
-            {
-                name: "kale",
-                preptime: 0,
-                cooktime: 200,
-                cooltime: 100
-
-            },
-            {
-                name: "drinks",
-                preptime: 300,
-                cooktime: 0,
-                cooltime: 0
-
-            },
-            {
-                name: "broccoli",
-                preptime: 900,
-                cooktime: 1020,
-                cooltime: 300
-            }
-        ];
-        */
-
 
         //compares ingredient times based on cooktime + preptime
         function compareIng(a,b) {
@@ -151,7 +123,7 @@ angular.module("Timeline", ["ui.router"])
             var i;
             for (i = 0; i < ingredients.length; ++i) {
                 var item = ingredients[i];
-                var total = item.prepTime + item.cookTime;
+                var total = item.prepTime + item.cookTime + item.coolTime;
                 if (total > time) {
                     time = total;
                 }
@@ -171,7 +143,7 @@ angular.module("Timeline", ["ui.router"])
             "height": "inherit",
             "margin-left": windowWidth / 2,
             "overflow": "hidden",
-            "z-index": "-1"
+            "z-index": "1"
         });
 
         // New timeline instance
@@ -266,7 +238,7 @@ angular.module("Timeline", ["ui.router"])
 
         //Tween instantiations
         var animate = TweenMax.to(
-            timelineContainer, 10, {ease: Power0.easeNone, "margin-left": marginPoint}
+            timelineContainer, containerWidth, {ease: Power0.easeNone, "margin-left": marginPoint}
         );
 
         // add tween to timeline
